@@ -1,0 +1,20 @@
+{
+  "name": "phat-frame-template",
+  "version": "1.0.0",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {},
+  "devDependencies": {
+    "ts-node": ">=8.0.0",
+    "typechain": "^8.1.0",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@coinbase/onchainkit": "^0.4.1",
+    "@phala/fn": "~0.2",
+    "@phala/pink-env": "^1.0.13",
+    "viem": "^1.19.3"
+  }
+}
