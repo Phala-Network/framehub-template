@@ -11,11 +11,11 @@ npm install
 ## Compile
 
 ```bash
-npx @phala/fn build src/index.ts 
+npx @phala/fn build --experimentalAsync
 ```
 
 ## Submit
 
 ```bash
-npm run submit -- my-project-1
+# TBD
 ```
