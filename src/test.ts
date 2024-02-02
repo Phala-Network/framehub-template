@@ -1,11 +1,9 @@
 import main from './index'
-import { stringToHex } from 'viem'
 
 async function execute(inputObj: any) {
     const inputJson = JSON.stringify(inputObj)
-    const input = stringToHex(inputJson);
-    console.log('INPUT:', input)
-    return await main(input, '')
+    console.log('INPUT:', inputJson)
+    return await main(inputJson, '')
 }
 
 const sampleInput = {
@@ -42,4 +40,4 @@ async function test() {
     }
 }
 
-test().then(() => {}).catch(err => console.error).finally(() => process.exit())
+test().then(() => {}).catch(err => console.error(err)).finally(() => process.exit())

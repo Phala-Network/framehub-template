@@ -1,7 +1,7 @@
 import "@phala/pink-env";
-import { hexToString } from 'viem';
+// import { hexToString } from 'viem';
 import { FrameRequest, getFrameMetadata, getFrameMessage, getFrameHtmlResponse } from '@coinbase/onchainkit'
-import { Request, Response, SerizliedRequest, renderOpenGraph } from './frameSupport'
+import { Request, Response, renderOpenGraph, route } from './frameSupport'
 
 const NEXT_PUBLIC_URL = 'https://my-frame.phalafn.xyz'
 
@@ -54,21 +54,7 @@ async function getResponse(req: Request): Promise<Response> {
 async function POST(req: any): Promise<Response> {
     return getResponse(req);
 }
-  
 
-export default async function main(request: `0x${string}`, secrets: string) {
-    const reqObj = <SerizliedRequest> JSON.parse(hexToString(request))
-    let response: Response;
-    if (reqObj.method == 'GET') {
-        response = await GET({
-            method: reqObj.method,
-            async json() { return null }
-        });
-    } else {
-        response = await POST({
-            method: reqObj.method,
-            async json() { return JSON.parse(reqObj.body) }
-        });
-    }
-    return JSON.stringify(response)
+export default async function main(request: string, secrets: string) {
+    return await route({GET, POST}, request)
 }
