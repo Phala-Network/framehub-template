@@ -10,17 +10,17 @@ async function GET(req: Request): Promise<Response> {
                 label: 'Click Me',
             },
         ],
-        image: `https://frames.thirdweb.com/farcaster.png`,
-        post_url: `https://playground.phatfn.xyz/run_js_from_ipfs/bafkreietpvqoppjmbwnwypbcmrf2wmutwvlpwoaf2gqimpasyhfn7hjecy`,
+        image: `https://phat-squid-frame.4everland.store/PhatFrame.png`,
+        post_url: `https://phat-frame-template.4everland.store/index.js`,
     });
 
     return new Response(renderOpenGraph({
-        title: 'zizzamia.xyz',
+        title: 'https://phat-frame-template.4everland.store/index.js',
         description: 'LFG',
         openGraph: {
-            title: 'zizzamia.xyz',
+            title: 'https://phat-frame-template.4everland.store/index.js',
             description: 'LFG',
-            images: [`https://frames.thirdweb.com/farcaster.png`],
+            images: [`https://phat-squid-frame.4everland.store/PhatFrame.png`],
         },
         other: {
             ...frameMetadata,
@@ -32,22 +32,22 @@ async function GET(req: Request): Promise<Response> {
 
 async function getResponse(req: Request): Promise<Response> {
     let accountAddress: string | undefined = '';
-  
+
     const body: FrameRequest = await req.json();
-    const { isValid, message } = await getFrameMessage(body, { neynarApiKey: 'NEYNAR_ONCHAIN_KIT' });
-  
-    if (isValid) {
-      accountAddress = message.interactor.verified_accounts[0];
-    }
-  
+    // const { isValid, message } = await getFrameMessage(body, { neynarApiKey: '' });
+    //
+    // if (isValid) {
+    //   accountAddress = message.interactor.verified_accounts[0];
+    // }
+
     return new Response(getFrameHtmlResponse({
         buttons: [
             {
-                label: `🌲 ${accountAddress} 🌲`,
+                label: `Phat Hello`,
             },
         ],
-        image: `https://frames.thirdweb.com/farcaster.png`,
-        post_url: `https://playground.phatfn.xyz/run_js_from_ipfs/bafkreietpvqoppjmbwnwypbcmrf2wmutwvlpwoaf2gqimpasyhfn7hjecy`,
+        image: `https://phat-squid-frame.4everland.store/phat-frame-cropped.png`,
+        post_url: `https://phat-frame-template.4everland.store/index.js`,
     }));
 }
 

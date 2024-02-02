@@ -50,12 +50,19 @@ export type Metadata = {
     other: Record<string, string>,
 }
 
-export function renderOpenGraph(metadata: Metadata): string { 
+export function renderOpenGraph(metadata: Metadata): string {
     return `
-    <!DOCTYPE html><html><head>
-        <meta property="og:image" content="${metadata.openGraph.images[0]}" />
-        ${Object.entries(metadata.other).map(([k, v]) => `<meta property="${k}" content="${v}" />`).join('\n')}
-    </head></html>`
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="utf-8" />
+            <meta property="og:title" content="Phat Frame" />
+            <meta property="og:image" content="${metadata.openGraph.images[0]}" />
+            <title>https://phat-frame-template.4everland.store/index.js</title>
+                ${Object.entries(metadata.other).map(([k, v]) => `
+            <meta property="${k}" content="${v}" />`).join('\n')}
+        </head>
+    </html>`
 }
 
 export type RouteConfig = {
