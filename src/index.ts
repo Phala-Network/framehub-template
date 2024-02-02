@@ -3,8 +3,6 @@ import "@phala/pink-env";
 import { FrameRequest, getFrameMetadata, getFrameMessage, getFrameHtmlResponse } from '@coinbase/onchainkit'
 import { Request, Response, renderOpenGraph, route } from './frameSupport'
 
-const NEXT_PUBLIC_URL = 'https://my-frame.phalafn.xyz'
-
 async function GET(req: Request): Promise<Response> {
     const frameMetadata = getFrameMetadata({
         buttons: [
@@ -12,8 +10,8 @@ async function GET(req: Request): Promise<Response> {
                 label: 'Click Me',
             },
         ],
-        image: `${NEXT_PUBLIC_URL}/park-1.png`,
-        post_url: `${NEXT_PUBLIC_URL}/api/frame`,
+        image: `https://frames.thirdweb.com/farcaster.png`,
+        post_url: `https://playground.phatfn.xyz/run_js_from_ipfs/bafkreietpvqoppjmbwnwypbcmrf2wmutwvlpwoaf2gqimpasyhfn7hjecy`,
     });
 
     return new Response(renderOpenGraph({
@@ -22,12 +20,14 @@ async function GET(req: Request): Promise<Response> {
         openGraph: {
             title: 'zizzamia.xyz',
             description: 'LFG',
-            images: [`${NEXT_PUBLIC_URL}/park-1.png`],
+            images: [`https://frames.thirdweb.com/farcaster.png`],
         },
         other: {
             ...frameMetadata,
         },
-      }));
+      }),
+      { headers: { 'Cache-Control': 'public, max-age=86400' } }
+    );
 }
 
 async function getResponse(req: Request): Promise<Response> {
@@ -46,8 +46,8 @@ async function getResponse(req: Request): Promise<Response> {
                 label: `🌲 ${accountAddress} 🌲`,
             },
         ],
-        image: `${NEXT_PUBLIC_URL}/park-2.png`,
-        post_url: `${NEXT_PUBLIC_URL}/api/frame`,
+        image: `https://frames.thirdweb.com/farcaster.png`,
+        post_url: `https://playground.phatfn.xyz/run_js_from_ipfs/bafkreietpvqoppjmbwnwypbcmrf2wmutwvlpwoaf2gqimpasyhfn7hjecy`,
     }));
 }
 

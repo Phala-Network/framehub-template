@@ -21,12 +21,21 @@ export class Request implements SerizliedRequest {
     }
 }
 
+type ResponseOption = {
+    headers?: Record<string, string>
+}
 export class Response {
     status: number;
     body?: string;
-    constructor(body: string) {
+    headers: Record<string, string>;
+    constructor(body: string, options?: ResponseOption) {
         this.status = 200;
         this.body = body;
+        this.headers = {
+            'Content-Type': 'text/html; charset=UTF-8',
+            'Access-Control-Allow-Origin': '*',
+            ...options?.headers
+        }
     }
 }
 
@@ -44,10 +53,8 @@ export type Metadata = {
 export function renderOpenGraph(metadata: Metadata): string { 
     return `
     <!DOCTYPE html><html><head>
-        <meta property="fc:frame" content="vNext" />
-        <meta property="fc:frame:image" content="${metadata.openGraph.images[0]}" />
         <meta property="og:image" content="${metadata.openGraph.images[0]}" />
-        ${Object.entries(metadata.other).map((k, v) => `<meta property="${k}" content="${v}" />`)}
+        ${Object.entries(metadata.other).map(([k, v]) => `<meta property="${k}" content="${v}" />`).join('\n')}
     </head></html>`
 }
 
@@ -72,7 +79,8 @@ export async function route(config: RouteConfig, request: string) {
     } else if (method == 'PUT' && config.PUT) {
         response = await config.PUT(req);
     } else {
-        response = { status: 400, body: "Not Found" }
+        response = new Response('Not Found');
+        response.status = 400
     }
     return JSON.stringify(response)
 }
