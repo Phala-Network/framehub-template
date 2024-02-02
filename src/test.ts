@@ -3,9 +3,10 @@ import { stringToHex } from 'viem'
 
 async function execute(inputObj: any) {
     const inputJson = JSON.stringify(inputObj)
-    return await main(stringToHex(inputJson), '')
+    const input = stringToHex(inputJson);
+    console.log('INPUT:', input)
+    return await main(input, '')
 }
-
 
 const sampleInput = {
     "untrustedData": {

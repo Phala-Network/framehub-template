@@ -83,8 +83,8 @@ async function getResponse(req: Request): Promise<Response> {
         image: `${NEXT_PUBLIC_URL}/park-2.png`,
         post_url: `${NEXT_PUBLIC_URL}/api/frame`,
     }));
-  }
-  
+}
+
 async function POST(req: any): Promise<Response> {
     return getResponse(req);
 }

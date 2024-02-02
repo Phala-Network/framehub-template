@@ -8,6 +8,12 @@ A Farcaster Frame Server running on decentralized serverless cloud.
 npm install
 ```
 
+## Test Locally
+
+```bash
+npx ts-node src/test.ts
+```
+
 ## Compile
 
 ```bash
