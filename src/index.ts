@@ -1,43 +1,9 @@
 import "@phala/pink-env";
 import { hexToString } from 'viem';
 import { FrameRequest, getFrameMetadata, getFrameMessage, getFrameHtmlResponse } from '@coinbase/onchainkit'
+import { Request, Response, SerizliedRequest, renderOpenGraph } from './frameSupport'
 
 const NEXT_PUBLIC_URL = 'https://my-frame.phalafn.xyz'
-type Request = {
-    method: 'GET' | 'POST',
-    json: () => Promise<any>,
-}
-type SerizliedRequest = {
-    method: 'GET' | 'POST',
-    body: string,
-}
-class Response {
-    status: number;
-    body?: string;
-    constructor(body: string) {
-        this.status = 200;
-        this.body = body;
-    }
-}
-type Metadata = {
-    title: string,
-    description: string,
-    openGraph: {
-        title: string,
-        description: string,
-        images: [string],
-    },
-    other: Record<string, string>,
-}
-function renderOpenGraph(metadata: Metadata): string { 
-    return `
-    <!DOCTYPE html><html><head>
-        <meta property="fc:frame" content="vNext" />
-        <meta property="fc:frame:image" content="${metadata.openGraph.images[0]}" />
-        <meta property="og:image" content="${metadata.openGraph.images[0]}" />
-        ${Object.entries(metadata.other).map((k, v) => `<meta property="${k}" content="${v}" />`)}
-    </head></html>`
-}
 
 async function GET(req: Request): Promise<Response> {
     const frameMetadata = getFrameMetadata({
