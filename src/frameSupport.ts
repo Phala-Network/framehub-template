@@ -91,3 +91,11 @@ export async function route(config: RouteConfig, request: string) {
     }
     return JSON.stringify(response)
 }
+
+export function stringToHex(str: string): string {
+    var hex = "";
+    for (var i = 0; i < str.length; i++) {
+        hex += str.charCodeAt(i).toString(16);
+    }
+    return "0x" + hex;
+}
