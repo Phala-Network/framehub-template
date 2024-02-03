@@ -92,10 +92,11 @@ export async function route(config: RouteConfig, request: string) {
     return JSON.stringify(response)
 }
 
+// Only works for ascii string
 export function stringToHex(str: string): string {
-    var hex = "";
-    for (var i = 0; i < str.length; i++) {
-        hex += str.charCodeAt(i).toString(16);
+    let hex = '';
+    for (let i = 0; i < str.length; i++) {
+        hex += str.charCodeAt(i).toString(16).padStart(2, '0');
     }
-    return "0x" + hex;
+    return '0x' + hex;
 }
