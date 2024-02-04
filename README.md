@@ -127,3 +127,50 @@ https://github.com/Phala-Network/phat-frame-template/assets/64296537/620ad981-73
 - [ ] Free "Publish to IPFS" command
 - [ ] SVG generation
 - [ ] Database
+
+## FAQ
+
+<details>
+<summary><b>What packages can I use in the frame server?</b></summary>
+<ul>
+  <li>Most of the npm packages are supported: viem, onchainkit, ….</li>
+  <li>Some packages with some advanced features are not supported:</li>
+  <ul>
+    <li>Large code size. Compiled bundle should be less than 500kb.</li>
+    <li>Large memory usage, like image generation</li>
+    <li>Web Assembly</li>
+    <li>Browser only features: local storage, service workers, etc</li>
+  </ul>
+</ul>
+</details>
+
+<details>
+<summary><b>What’s the spec of the Javascript runtime?</b></summary>
+<ul>
+  <li>The code runs inside a tailored Quick-JS engine</li>
+  <li>Available features: ES2023, async, fetch, setTimeout, setInterval, bigint</li>
+  <li>Resource limits</li>
+  <ul>
+    <li>Max execution time 10s</li>
+    <li>Max memory usage: 16 mb</li>
+    <li>Max code size: 500 kb</li>
+    <li>Limited CPU burst: CPU time between async calls is limited. e.g. Too complex for-loop may hit the burst limit.</li>
+  </ul>
+</ul>
+</details>
+
+<details>
+<summary><b>Why is the serverless platform secure?</b></summary>
+<ul>
+  <li>Your code on FrameHub is fully secure, private, and permissionless. Nobody can manipulate your program, steal any data from it, or censor it.</li>
+  <li>Security: The code is executed in the decentralized TEE network running on Phala Network. It runs code inside a secure blackbox (called enclave) created by the CPU. It generates cryptographic proofs verifiable on Phala blockchain. It proves that the hosted code is exactly the one you deployed.</li>
+  <li>Privacy: You can safely put secrets like API keys or user privacy on FrameHub. The code runs inside TEE hardware blackboxs. The memory of the program is fully encrypted by the TEE. It blocks any unauthorized access to your data.</li>
+  <li>Learn more at <a href="https://phala.network">Phala Network Homepage</a></li>
+</details>
+
+<details>
+<summary><b>What's TEE / Intel SGX?</b></summary>
+<ul>
+  <li><a href="https://collective.flashbots.net/t/tee-sgx-wiki/2019">TEE/SGX wiki</a></li>
+  <li><a href="https://collective.flashbots.net/t/debunking-tee-fud-a-brief-defense-of-the-use-of-tees-in-crypto/2931">Debunking TEE FUD: A Brief Defense of The Use of TEEs in Crypto</a></li>
+</details>
