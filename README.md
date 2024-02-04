@@ -1,26 +1,57 @@
-# FrameHub Template
+<br />
+<div align="center">
+  <a href="https://github.com/Phala-Network/framehub-template">
+    <img src="https://i.imgur.com/WrGTAKp.jpeg" alt="Logo" width="80" height="80">
+  </a>
 
-A Farcaster Frame Server running on decentralized serverless cloud.
+  <h3 align="center">FrameHub-Template</h3>
 
-## Prepare
+  <p align="center">
+    Host Farcaster Frames on decentralized serverless cloud.
+    <br />
+    <a href="https://github.com/Phala-Network/framehub-template"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
+    ·
+    <a href="https://github.com/Phala-Network/framehub-template/issues">Report Bug</a>
+    ·
+    <a href="https://t.me/framehubhq">Telegram Discussion</a>
+  </p>
+</div>
+
+## About The Project
+
+![](https://i.imgur.com/DqcisLn.png)
+
+FrameHub is a decentralized Farcaster Frame hosting service. Unlike Vercel or other serverless, it allows you to publish your Frame to IPFS and hosts it on a fully decentralized FaaS cloud with the following benefits:
+
+- 💨 Ship Fast: Build and Ship with familiar toolchain and packages
+- ⛑️ Secure: Execution guarded by rock solid TEE / Intel SGX
+- 🔒 Private: Host API keys and user privacy at ease
+- 💎 Unstoppable: Powered by IPFS and [Phala](https://phala.network)'s 35k+ decentralized TEE workers
+
+## Getting Started
+
+### Prepare
 
 ```bash
 npm install
 ```
 
-## Test Locally
+### Test Locally
 
 ```bash
 npx ts-node src/test.ts
 ```
 
-## Compile
+### Compile
 
 ```bash
 npx @phala/fn build --experimentalAsync
 ```
 
-## Publish to IPFS
+### Publish to IPFS
 
 ```bash
 npx thirdweb upload dist/index.js
@@ -29,7 +60,7 @@ npx thirdweb upload dist/index.js
 Upon a successful upload, the command should show something like below. You can copy the IPFS CID (the string after "ipfs://") for the next step.
 > ✔ Files stored at the following IPFS URI: ipfs://QmVNNQvmYY8VqaZwXKYsejkko2eF83yqxzaoaRoBHsbDcH
 
-## Access the Published Frame
+### Access the Published Frame
 
 Once published, your frame is availabe at the URL: `https://frames.phatfn.xyz/ipfs/<your-cid>`. Replace `<your-cid>` with the CID of the published js file.
 
@@ -84,9 +115,7 @@ https://github.com/Phala-Network/phat-frame-template/assets/64296537/620ad981-73
 
 (TBD: instantiate, ...)
 
-## Under development
-
-Current TODOs.
+## Roadmap
 
 - [x] Publish to IPFS command
 - [x] Support secrets
