@@ -8,20 +8,20 @@ async function GET(req: Request): Promise<Response> {
     const frameMetadata = getFrameMetadata({
         buttons: [
             {
-                label: 'Click Me!',
+                label: `FrameHub Template\nClick Here!`,
             },
         ],
-        image: `https://phat-squid-frame.4everland.store/PhatFrame.png`,
+        image: `https://framehub.4everland.store/PhatFrame.png`,
         post_url: BASE_URL + req.path,
     });
 
     return new Response(renderOpenGraph({
-        title: 'https://phat-frame-template.4everland.store/test/index.js',
-        description: 'LFG',
+        title: BASE_URL + req.path,
+        description: 'FrameHub',
         openGraph: {
-            title: 'https://phat-frame-template.4everland.store/test/index.js',
-            description: 'LFG',
-            images: [`https://phat-squid-frame.4everland.store/PhatFrame.png`],
+            title: BASE_URL + req.path,
+            description: 'FrameHub',
+            images: [`https://framehub.4everland.store/PhatFrame.png`],
         },
         other: {
             ...frameMetadata,
@@ -33,10 +33,11 @@ async function GET(req: Request): Promise<Response> {
 
 async function getResponse(req: Request): Promise<Response> {
     let accountAddress: string | undefined = '';
+    const apiKey = req.secret?.apiKey ?? 'NEYNAR_API';
 
     const body: FrameRequest = await req.json();
 
-    const { isValid, message } = await getFrameMessage(body, { neynarApiKey: 'NEYNAR_API'});
+    const { isValid, message } = await getFrameMessage(body, { neynarApiKey: `${apiKey}`});
 
     if (isValid) {
       accountAddress = message.interactor.verified_accounts[0];
@@ -47,17 +48,17 @@ async function getResponse(req: Request): Promise<Response> {
                 label: `Phat Hello to ${accountAddress}`,
             },
         ],
-        image: 'https://phat-squid-frame.4everland.store/phat-frame-cropped.png',
+        image: 'https://framehub.4everland.store/FrameHub.png',
         post_url: BASE_URL + req.path,
     });
 
     return new Response(renderOpenGraph({
-            title: 'https://phat-frame-template.4everland.store/test/index.js',
-            description: 'LFG',
+            title: BASE_URL + req.path,
+            description: 'FrameHub',
             openGraph: {
-                title: 'https://phat-frame-template.4everland.store/test/index.js',
-                description: 'LFG',
-                images: [`https://phat-squid-frame.4everland.store/phat-frame-cropped.png`],
+                title: BASE_URL + req.path,
+                description: 'FrameHub',
+                images: [`https://framehub.4everland.store/FrameHub.png`],
             },
             other: {
                 ...frameMetadata,

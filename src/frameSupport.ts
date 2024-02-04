@@ -1,20 +1,23 @@
-export interface SerizliedRequest {
+export interface SerializedRequest {
     method: 'GET' | 'POST' | 'PATCH' | 'PUT';
     path: string;
     headers: Record<string, string>;
     body: string;
+    secret?: Record<string, unknown>;
 }
 
-export class Request implements SerizliedRequest {
+export class Request implements SerializedRequest {
     method: 'GET' | 'POST' | 'PATCH' | 'PUT';
     path: string;
     headers: Record<string, string>;
     body: string;
-    constructor(raw: SerizliedRequest) {
+    secret?: Record<string, unknown>;
+    constructor(raw: SerializedRequest) {
         this.body = raw.body;
         this.headers = raw.headers;
         this.method = raw.method;
         this.path = raw.path;
+        this.secret = raw.secret;
     }
     async json(): Promise<any> {
         return JSON.parse(this.body)
@@ -73,7 +76,7 @@ export type RouteConfig = {
 }
 
 export async function route(config: RouteConfig, request: string) {
-    const reqObj = <SerizliedRequest> JSON.parse(request)
+    const reqObj: SerializedRequest = JSON.parse(request)
     let response: Response;
     const method = reqObj.method
     const req = new Request(reqObj)
