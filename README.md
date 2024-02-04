@@ -78,6 +78,10 @@ If you are using secrets, make sure that your Cast URL is set in the following s
 https://frames.phatfn.xyz/ipfs/<cid>/<key>
 ```
 
+https://github.com/Phala-Network/phat-frame-template/assets/64296537/620ad981-73a8-46c0-8cfd-16d2e245abfc
+
+
+
 (TBD: instantiate, ...)
 
 ## Under development
