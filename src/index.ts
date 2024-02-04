@@ -2,6 +2,8 @@ import "@phala/sidevm-env";
 import { FrameRequest, getFrameMetadata, getFrameMessage, getFrameHtmlResponse } from '@coinbase/onchainkit'
 import { Request, Response, renderOpenGraph, route } from './frameSupport'
 
+const BASE_URL = 'https://frames.phatfn.xyz'
+
 async function GET(req: Request): Promise<Response> {
     const frameMetadata = getFrameMetadata({
         buttons: [
@@ -10,7 +12,7 @@ async function GET(req: Request): Promise<Response> {
             },
         ],
         image: `https://phat-squid-frame.4everland.store/PhatFrame.png`,
-        post_url: `https://playground.phatfn.xyz/run_js_from_ipfs/bafkreibt6sfmdpu7v4azq5xhriqsyj5utvbjpyo57snku7b7hwk6bx5vde`,
+        post_url: BASE_URL + req.path,
     });
 
     return new Response(renderOpenGraph({
@@ -46,7 +48,7 @@ async function getResponse(req: Request): Promise<Response> {
             },
         ],
         image: 'https://phat-squid-frame.4everland.store/phat-frame-cropped.png',
-        post_url: 'https://playground.phatfn.xyz/run_js_from_ipfs/bafkreibt6sfmdpu7v4azq5xhriqsyj5utvbjpyo57snku7b7hwk6bx5vde',
+        post_url: BASE_URL + req.path,
     });
 
     return new Response(renderOpenGraph({

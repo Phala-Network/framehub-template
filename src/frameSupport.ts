@@ -56,10 +56,10 @@ export function renderOpenGraph(metadata: Metadata): string {
     <html lang="en">
         <head>
             <meta charset="utf-8" />
-            <meta property="og:title" content="Phat Frame" />
+            <meta property="og:title" content="${metadata.title}" />
             <meta property="og:image" content="${metadata.openGraph.images[0]}" />
-            <title>https://phat-frame-template.4everland.store/index.js</title>
-                ${Object.entries(metadata.other).map(([k, v]) => `
+            <title>${metadata.title}</title>
+            ${Object.entries(metadata.other).map(([k, v]) => `
             <meta property="${k}" content="${v}" />`).join('\n')}
         </head>
     </html>`
@@ -87,7 +87,7 @@ export async function route(config: RouteConfig, request: string) {
         response = await config.PUT(req);
     } else {
         response = new Response('Not Found');
-        response.status = 400
+        response.status = 404
     }
     return JSON.stringify(response)
 }
