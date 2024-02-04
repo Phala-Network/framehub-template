@@ -147,7 +147,7 @@ https://github.com/Phala-Network/phat-frame-template/assets/64296537/620ad981-73
 <details>
 <summary><b>What’s the spec of the Javascript runtime?</b></summary>
 <ul>
-  <li>The code runs inside a tailored Quick-JS engine</li>
+  <li>The code runs inside a tailored <a href="https://bellard.org/quickjs/">QuickJS engine</a></li>
   <li>Available features: ES2023, async, fetch, setTimeout, setInterval, bigint</li>
   <li>Resource limits</li>
   <ul>
