@@ -12,7 +12,7 @@
     <a href="https://github.com/Phala-Network/framehub-template"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
+    <a href="https://warpcast.com/hashwarlock/0x28888657">View Demo</a>
     ·
     <a href="https://github.com/Phala-Network/framehub-template/issues">Report Bug</a>
     ·
@@ -24,9 +24,9 @@
 
 ![](https://i.imgur.com/DqcisLn.png)
 
-FrameHub is a decentralized Farcaster Frame hosting service. Unlike Vercel or other serverless, it allows you to publish your Frame to IPFS and hosts it on a fully decentralized FaaS cloud with the following benefits:
+FrameHub is a decentralized Farcaster Frame hosting protocol. Unlike Vercel or other FaaS, it allows you to publish your Frame to IPFS and hosts it on a fully decentralized FaaS cloud with the following benefits:
 
-- 💨 Ship Fast: Build and Ship with familiar toolchain and packages
+- 💨 Ship Fast: Build and ship with familiar toolchain in minutes
 - ⛑️ Secure: Execution guarded by rock solid TEE / Intel SGX
 - 🔒 Private: Host API keys and user privacy at ease
 - 💎 Unstoppable: Powered by IPFS and [Phala](https://phala.network)'s 35k+ decentralized TEE workers
