@@ -75,7 +75,12 @@ You can test the frame with the [Warpcast frame simulator](https://warpcast.com/
 ## Advanced Usage
 
 ### Add Secrets
-By default, all of the compiled JS code is visible for anyone to view if they look at IPFS CID. This makes private info like API keys, signer keys, etc. vulnerable to be stolen. To enable secrets, we have created a field called `secret` in the `SerializedRequest` interface to pass in secrets.
+
+By default, all of the compiled JS code is visible for anyone to view if they look at IPFS CID. This makes private info like API keys, signer keys, etc. vulnerable to be stolen. To protect devs from leaking keys, we have added a field called `secret` in the `SerializedRequest` interface to store secrets in a vault for your Frame to consume.
+
+<details>
+<summary><b>How to Add Secrets</b></summary>
+
 The steps to add a `secret` is simple. We will add the [Neynar](https://neynar.com) API Key in this example by creating a key value `apiKey` mapped to a value.
 > Note: Before continuing, make sure to publish your compiled JS code, so you can add secrets to the CID.
 
@@ -111,7 +116,7 @@ https://frames.phatfn.xyz/ipfs/<cid>/<key>
 
 https://github.com/Phala-Network/phat-frame-template/assets/64296537/620ad981-73a8-46c0-8cfd-16d2e245abfc
 
-
+</details>
 
 (TBD: instantiate, ...)
 
