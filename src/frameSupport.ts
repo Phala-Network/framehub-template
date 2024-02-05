@@ -1,6 +1,7 @@
 export interface SerializedRequest {
     method: 'GET' | 'POST' | 'PATCH' | 'PUT';
     path: string;
+    queries: Record<string, string[]>;
     headers: Record<string, string>;
     body: string;
     secret?: Record<string, unknown>;
@@ -9,11 +10,13 @@ export interface SerializedRequest {
 export class Request implements SerializedRequest {
     method: 'GET' | 'POST' | 'PATCH' | 'PUT';
     path: string;
+    queries: Record<string, string[]>;
     headers: Record<string, string>;
     body: string;
     secret?: Record<string, unknown>;
     constructor(raw: SerializedRequest) {
         this.body = raw.body;
+        this.queries = raw.queries;
         this.headers = raw.headers;
         this.method = raw.method;
         this.path = raw.path;

@@ -122,7 +122,7 @@ To see where the code is used in this template, check out [index.ts](./src/index
 
 If you are using secrets, make sure that your Cast URL is set in the following syntax where `cid` is the IPFS CID of your compiled JS file and `key` is the `key` from adding secrets to your vault.
 ```text
-https://frames.phatfn.xyz/ipfs/<cid>/<key>
+https://frames.phatfn.xyz/ipfs/<cid>?key=<key>
 ```
 
 https://github.com/Phala-Network/phat-frame-template/assets/64296537/620ad981-73a8-46c0-8cfd-16d2e245abfc
