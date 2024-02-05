@@ -1,11 +1,15 @@
 {
   "compilerOptions": {
     "target": "es2020",
-    "module": "commonjs",
+    "module": "es6",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-    "resolveJsonModule": true
-  }
+    "resolveJsonModule": true,
+    "moduleResolution": "node"
+  },
+  "include": [
+    "node_modules/@coinbase/onchainkit/dist/types/"
+  ]
 }

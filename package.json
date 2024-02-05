@@ -5,7 +5,10 @@
   "engines": {
     "node": ">=18"
   },
-  "scripts": {},
+  "scripts": {
+    "build": "phat-fn build",
+    "lint": "tsc --noEmit"
+  },
   "devDependencies": {
     "ts-node": ">=8.0.0",
     "typechain": "^8.1.0",
@@ -14,8 +17,6 @@
   "dependencies": {
     "@coinbase/onchainkit": "^0.4.5",
     "@phala/fn": "~0.2.13",
-    "@phala/pink-env": "^1.0.13",
-    "@phala/sidevm-env": "^1.0.1",
     "viem": "^2.7.3"
   }
 }
