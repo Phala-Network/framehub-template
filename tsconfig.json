@@ -9,6 +9,6 @@
     "resolveJsonModule": true
   },
   "include": [
-    "node_modules/@phala/pink-env"
+    "node_modules/@phala/sidevm-env"
   ]
 }

@@ -72,6 +72,6 @@ async function POST(req: any): Promise<Response> {
     return getResponse(req);
 }
 
-export default async function main(request: string, secrets: string) {
+export default async function main(request: string) {
     return await route({GET, POST}, request)
 }

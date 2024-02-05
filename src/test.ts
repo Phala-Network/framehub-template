@@ -3,7 +3,7 @@ import main from './index'
 async function execute(inputObj: any) {
     const inputJson = JSON.stringify(inputObj)
     console.log('INPUT:', inputJson)
-    return await main(inputJson, '')
+    return await main(inputJson)
 }
 
 const sampleInput = {
