@@ -1,5 +1,6 @@
-import "@phala/sidevm-env";
-import { FrameRequest, getFrameMetadata, getFrameMessage, getFrameHtmlResponse } from '@coinbase/onchainkit'
+import { type FrameRequest } from '@coinbase/onchainkit'
+import { getFrameMetadata } from '@coinbase/onchainkit/src/core/getFrameMetadata'
+import { getFrameMessage } from '@coinbase/onchainkit/src/core/getFrameMessage'
 import { Request, Response, renderOpenGraph, route } from './frameSupport'
 
 const BASE_URL = 'https://frames.phatfn.xyz'
