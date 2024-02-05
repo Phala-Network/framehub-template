@@ -7,8 +7,5 @@
     "strict": true,
     "skipLibCheck": true,
     "resolveJsonModule": true
-  },
-  "include": [
-    "node_modules/@phala/sidevm-env"
-  ]
+  }
 }
