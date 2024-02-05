@@ -65,6 +65,13 @@ export function renderOpenGraph(metadata: Metadata): string {
             ${Object.entries(metadata.other).map(([k, v]) => `
             <meta property="${k}" content="${v}" />`).join('\n')}
         </head>
+        <body>
+            <div align="center">
+                <p><a href="https://github.com/Phala-Network/framehub-template"><img src="https://i.imgur.com/WrGTAKp.jpeg" alt="Logo" width="80" height="80"></a></p>
+                <p>Frame hosted on <a href="https://github.com/Phala-Network/framehub-template">FrameHub</a>, a fully decentralized Vercel for Frame.</p>
+                <img src="https://i.imgur.com/DqcisLn.png" width="600">
+            </div>
+        </body>
     </html>`
 }
 
