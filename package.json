@@ -5,7 +5,10 @@
   "engines": {
     "node": ">=18"
   },
-  "scripts": {},
+  "scripts": {
+    "build": "npx @phala/fn build --experimentalAsync",
+    "publish": "npx @phala/fn build --experimentalAsync && ts-node scripts/publish.ts"
+  },
   "devDependencies": {
     "ts-node": ">=8.0.0",
     "typechain": "^8.1.0",

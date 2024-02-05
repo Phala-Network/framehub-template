@@ -47,22 +47,33 @@ npx ts-node src/test.ts
 
 ### Compile
 
+Build your frame and output at `dist/index.js`.
+
 ```bash
-npx @phala/fn build --experimentalAsync
+npm run build
+# yarn build
 ```
 
 ### Publish to IPFS
 
+Build your frame and upload to IPFS
+
 ```bash
-npx thirdweb upload dist/index.js
+npm run publish
+# yarn publish
 ```
 
-Upon a successful upload, the command should show something like below. You can copy the IPFS CID (the string after "ipfs://") for the next step.
-> ✔ Files stored at the following IPFS URI: ipfs://QmVNNQvmYY8VqaZwXKYsejkko2eF83yqxzaoaRoBHsbDcH
+Upon a successful upload, the command should show the URL to access your frame.
+> Frame deployed at: https://frames.phatfn.xyz/Qma4ejJPfuB9ag63TrWWd379QA1rKf1HyXJmLE5k16dAYk
+
+<details>
+<summary>New to thirdweb?</summary>
+We use <a href="https://thirdweb.com/dashboard/infrastructure/storage">thirdweb Storage</a> to host IPFS contents. If you are new to thirdweb, the command will guide you to create your account or login to your existing account from the browser. (You may need to forward port 8976 if you are accessing a remote console via SSH.)
+</details>
 
 ### Access the Published Frame
 
-Once published, your frame is availabe at the URL: `https://frames.phatfn.xyz/ipfs/<your-cid>`. Replace `<your-cid>` with the CID of the published js file.
+Once published, your frame is availabe at the URL: `https://frames.phatfn.xyz/ipfs/<your-cid>`. You can get it from the "Publish to IPFS" step.
 
 You can test it with `curl`.
 
