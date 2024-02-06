@@ -6,8 +6,9 @@
     "node": ">=18"
   },
   "scripts": {
-    "build": "phat-fn build",
-    "lint": "tsc --noEmit"
+    "build": "phat-fn build --experimentalAsync",
+    "lint": "tsc --noEmit",
+    "publish": "phat-fn build --experimentalAsync && ts-node scripts/publish.ts"
   },
   "devDependencies": {
     "ts-node": ">=8.0.0",

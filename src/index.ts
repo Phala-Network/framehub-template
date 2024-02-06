@@ -6,6 +6,7 @@ import { Request, Response, renderOpenGraph, route } from './frameSupport'
 const BASE_URL = 'https://frames.phatfn.xyz'
 
 async function GET(req: Request): Promise<Response> {
+    const secret = req.queries?.key ?? '';
     const frameMetadata = getFrameMetadata({
         buttons: [
             {
@@ -13,7 +14,7 @@ async function GET(req: Request): Promise<Response> {
             },
         ],
         image: `https://framehub.4everland.store/PhatFrame.png`,
-        post_url: BASE_URL + req.path,
+        post_url: BASE_URL + req.path + `?key=${secret[0]}`,
     });
 
     return new Response(renderOpenGraph({
@@ -34,6 +35,7 @@ async function GET(req: Request): Promise<Response> {
 
 async function getResponse(req: Request): Promise<Response> {
     let accountAddress: string | undefined = '';
+    const secret = req.queries?.key ?? ''
     const apiKey = req.secret?.apiKey ?? 'NEYNAR_API';
 
     const body: FrameRequest = await req.json();
@@ -50,7 +52,7 @@ async function getResponse(req: Request): Promise<Response> {
             },
         ],
         image: 'https://framehub.4everland.store/FrameHub.png',
-        post_url: BASE_URL + req.path,
+        post_url: BASE_URL + req.path + `?key=${secret[0]}`,
     });
 
     return new Response(renderOpenGraph({
