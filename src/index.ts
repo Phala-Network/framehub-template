@@ -20,19 +20,21 @@ function renderPage(curPage: number, path: string): string {
     const isLastPage = (curPage == pageImgs.length - 1)
     const frameMetadata = getFrameMetadata({
         buttons: [
-            (isFirstPage ? { label: 'Get Started', action: 'link' } : { label: '⬅️ Prev' }),
-            (isLastPage ? { label: 'Get Started', action: 'link' } : { label: 'Next ➡️' }),
+            // (isFirstPage ? { label: 'Get Started', action: 'link' } : { label: '⬅️ Prev' }),
+            // (isLastPage ? { label: 'Get Started', action: 'link' } : { label: 'Next ➡️' }),
+            (isFirstPage ? { label: 'Get Started', action: 'post_redirect' } : { label: '⬅️ Prev' }),
+            (isLastPage ? { label: 'Get Started', action: 'post_redirect' } : { label: 'Next ➡️' }),
         ],
         image: pageImgs[curPage],
         post_url: postUrl,
         refresh_period: null,
         input: null,
     });
-    if (isFirstPage) {
-        frameMetadata['fc:frame:button:1:target'] = 'https://github.com/Phala-Network/framehub-template'
-    } else if (isLastPage) {
-        frameMetadata['fc:frame:button:2:target'] = 'https://github.com/Phala-Network/framehub-template'
-    }
+    // if (isFirstPage) {
+    //     frameMetadata['fc:frame:button:1:target'] = 'https://github.com/Phala-Network/framehub-template'
+    // } else if (isLastPage) {
+    //     frameMetadata['fc:frame:button:2:target'] = 'https://github.com/Phala-Network/framehub-template'
+    // }
 
     return renderOpenGraph({
         title: postUrl,
@@ -53,9 +55,20 @@ async function GET(req: Request): Promise<Response> {
 }
 
 async function POST(req: Request): Promise<Response> {
-    const body: FrameRequest =  await req.json()
+    const body: FrameRequest = await req.json()
     const pageNum = parseInt(req.queries['page'][0])
-    const delta = [0, -1, 1][body.untrustedData.buttonIndex]
+    const buttonId = body.untrustedData.buttonIndex
+    // "Get Started" redirect buttons
+    if ((pageNum == 0 && buttonId == 1) || (pageNum == pageImgs.length - 1 && buttonId == 2)) {
+        return new Response('', {
+            status: 302,
+            headers: {
+                'Location': 'https://github.com/Phala-Network/framehub-template'
+            },
+        })
+    }
+
+    const delta = [0, -1, 1][buttonId]
     const curPage = pageNum + delta
     
     return new Response(

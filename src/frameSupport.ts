@@ -41,6 +41,7 @@ export class Request implements SerializedRequest {
 }
 
 type ResponseOption = {
+    status?: number,
     headers?: Record<string, string>
 }
 export class Response {
@@ -48,7 +49,7 @@ export class Response {
     body?: string;
     headers: Record<string, string>;
     constructor(body: string, options?: ResponseOption) {
-        this.status = 200;
+        this.status = options?.status ?? 200;
         this.body = body;
         this.headers = {
             'Content-Type': 'text/html; charset=UTF-8',
