@@ -7,9 +7,9 @@
     "strict": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "moduleResolution": "node"
-  },
-  "include": [
-    "node_modules/@coinbase/onchainkit/dist/types/"
-  ]
+    "moduleResolution": "node",
+    "paths": {
+      "@coinbase/onchainkit/dist/lib/*": ["./node_modules/@coinbase/onchainkit/dist/types/*"]
+    }
+  }
 }
