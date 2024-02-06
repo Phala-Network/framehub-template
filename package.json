@@ -7,17 +7,17 @@
   },
   "scripts": {
     "build": "phat-fn build --experimentalAsync",
+    "test": "tsx src/test.ts",
     "lint": "tsc --noEmit",
-    "publish": "phat-fn build --experimentalAsync && ts-node scripts/publish.ts"
+    "publish": "phat-fn build --experimentalAsync && tsx scripts/publish.ts"
   },
   "devDependencies": {
-    "ts-node": ">=8.0.0",
+    "@phala/fn": "~0.2.14",
+    "tsx": "^4.7.0",
     "typechain": "^8.1.0",
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@coinbase/onchainkit": "^0.4.5",
-    "@phala/fn": "~0.2.13",
-    "viem": "^2.7.3"
+    "@coinbase/onchainkit": "^0.4.5"
   }
 }

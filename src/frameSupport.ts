@@ -3,7 +3,7 @@ export interface SerializedRequest {
     path: string;
     queries: Record<string, string[]>;
     headers: Record<string, string>;
-    body: string;
+    body?: string;
     secret?: Record<string, unknown>;
 }
 
@@ -12,7 +12,7 @@ export class Request implements SerializedRequest {
     path: string;
     queries: Record<string, string[]>;
     headers: Record<string, string>;
-    body: string;
+    body?: string;
     secret?: Record<string, unknown>;
     constructor(raw: SerializedRequest) {
         this.body = raw.body;
@@ -23,11 +23,12 @@ export class Request implements SerializedRequest {
         this.secret = raw.secret;
     }
     async json(): Promise<any> {
-        return JSON.parse(this.body)
+        return JSON.parse(this.body!)
     }
 }
 
 type ResponseOption = {
+    status?: number,
     headers?: Record<string, string>
 }
 export class Response {
@@ -35,7 +36,7 @@ export class Response {
     body?: string;
     headers: Record<string, string>;
     constructor(body: string, options?: ResponseOption) {
-        this.status = 200;
+        this.status = options?.status ?? 200;
         this.body = body;
         this.headers = {
             'Content-Type': 'text/html; charset=UTF-8',
@@ -57,6 +58,8 @@ export type Metadata = {
 }
 
 export function renderOpenGraph(metadata: Metadata): string {
+    const sortedMetadata = Object.entries(metadata.other)
+        .sort((a, b) => a[0] < b[0] ? -1 : (a[0] > b[0] ? 1 : 0))
     return `
     <!DOCTYPE html>
     <html lang="en">
@@ -65,8 +68,8 @@ export function renderOpenGraph(metadata: Metadata): string {
             <meta property="og:title" content="${metadata.title}" />
             <meta property="og:image" content="${metadata.openGraph.images[0]}" />
             <title>${metadata.title}</title>
-            ${Object.entries(metadata.other).map(([k, v]) => `
-            <meta property="${k}" content="${v}" />`).join('\n')}
+            ${sortedMetadata.map(([k, v]) => `
+            <meta property="${k}" content="${v}" />`).join('')}
         </head>
         <body>
             <div align="center">
