@@ -3,7 +3,7 @@ export interface SerializedRequest {
     path: string;
     queries: Record<string, string[]>;
     headers: Record<string, string>;
-    body: string;
+    body?: string;
     secret?: Record<string, unknown>;
 }
 
@@ -12,7 +12,7 @@ export class Request implements SerializedRequest {
     path: string;
     queries: Record<string, string[]>;
     headers: Record<string, string>;
-    body: string;
+    body?: string;
     secret?: Record<string, unknown>;
     constructor(raw: SerializedRequest) {
         this.body = raw.body;
@@ -23,7 +23,20 @@ export class Request implements SerializedRequest {
         this.secret = raw.secret;
     }
     async json(): Promise<any> {
-        return JSON.parse(this.body)
+        return JSON.parse(this.body!)
+    }
+    queryString(): string {
+        let maybeQuery = ''
+        for (const k in this.queries) {
+            maybeQuery += `${k}=${this.queries[k]}`
+        }
+        if (maybeQuery) {
+            maybeQuery = '?' + maybeQuery;
+        }
+        return maybeQuery
+    }
+    url(): string {
+        return `https://frames.phatfn.xyz${this.path}${this.queryString()}`
     }
 }
 

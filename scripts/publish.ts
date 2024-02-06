@@ -22,7 +22,7 @@ try {
 
       if (match) {
         const ipfsCid = match[1];
-        console.log(`\nFrame deployed at: https://frames.phatfn.xyz/${ipfsCid}`)
+        console.log(`\nFrame deployed at: https://frames.phatfn.xyz/ipfs/${ipfsCid}`)
       } else {
         console.log('IPFS CID not found');
       }

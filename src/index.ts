@@ -5,74 +5,60 @@ import { Request, Response, renderOpenGraph, route } from './frameSupport'
 
 const BASE_URL = 'https://frames.phatfn.xyz'
 
-async function GET(req: Request): Promise<Response> {
-    const secret = req.queries?.key ?? '';
+const pageImgs = [
+    'https://cloudflare-ipfs.com/ipfs/QmUUNNeYnnTdUxyeDqkMg67m1r6RsgpgbbeGR74nRZS1jX/1.png',
+    'https://cloudflare-ipfs.com/ipfs/QmUUNNeYnnTdUxyeDqkMg67m1r6RsgpgbbeGR74nRZS1jX/2.png',
+    'https://cloudflare-ipfs.com/ipfs/QmUUNNeYnnTdUxyeDqkMg67m1r6RsgpgbbeGR74nRZS1jX/3.png',
+    'https://cloudflare-ipfs.com/ipfs/QmUUNNeYnnTdUxyeDqkMg67m1r6RsgpgbbeGR74nRZS1jX/4.png',
+    'https://cloudflare-ipfs.com/ipfs/QmUUNNeYnnTdUxyeDqkMg67m1r6RsgpgbbeGR74nRZS1jX/5.png',
+]
+
+function renderPage(curPage: number, path: string): string {
+    const postUrl = `${BASE_URL}${path}?page=${curPage}`
+    const isFirstPage = (curPage == 0)
+    const isLastPage = (curPage == pageImgs.length - 1)
     const frameMetadata = getFrameMetadata({
         buttons: [
-            {
-                label: `FrameHub Template\nClick Here!`,
-            },
+            {label: isFirstPage ? 'Get Started' : '⬅️ Prev'},
+            {label: isLastPage ? 'Get Started' : 'Next ➡️'}
         ],
-        image: `https://framehub.4everland.store/PhatFrame.png`,
-        post_url: BASE_URL + req.path + `?key=${secret[0]}`,
+        image: pageImgs[curPage],
+        post_url: postUrl,
+        refresh_period: null,
+        input: null,
     });
 
-    return new Response(renderOpenGraph({
-        title: BASE_URL + req.path,
+    return renderOpenGraph({
+        title: postUrl,
         description: 'FrameHub',
         openGraph: {
-            title: BASE_URL + req.path,
+            title: postUrl,
             description: 'FrameHub',
-            images: [`https://framehub.4everland.store/PhatFrame.png`],
+            images: [pageImgs[0]],
         },
-        other: {
-            ...frameMetadata,
-        },
-      }),
-      { headers: { 'Cache-Control': 'public, max-age=86400' } }
-    );
+        other: frameMetadata,
+    })
 }
-
-async function getResponse(req: Request): Promise<Response> {
-    let accountAddress: string | undefined = '';
-    const secret = req.queries?.key ?? ''
-    const apiKey = req.secret?.apiKey ?? 'NEYNAR_API';
-
-    const body: FrameRequest = await req.json();
-
-    const { isValid, message } = await getFrameMessage(body, { neynarApiKey: `${apiKey}`});
-
-    if (isValid) {
-      accountAddress = message.interactor.verified_accounts[0];
-    }
-    const frameMetadata = getFrameMetadata({
-        buttons: [
-            {
-                label: `Phat Hello to ${accountAddress}`,
-            },
-        ],
-        image: 'https://framehub.4everland.store/FrameHub.png',
-        post_url: BASE_URL + req.path + `?key=${secret[0]}`,
-    });
-
-    return new Response(renderOpenGraph({
-            title: BASE_URL + req.path,
-            description: 'FrameHub',
-            openGraph: {
-                title: BASE_URL + req.path,
-                description: 'FrameHub',
-                images: [`https://framehub.4everland.store/FrameHub.png`],
-            },
-            other: {
-                ...frameMetadata,
-            },
-        }),
+async function GET(req: Request): Promise<Response> {
+    return new Response(
+        renderPage(0, req.path),
         { headers: { 'Cache-Control': 'public, max-age=86400' } }
     );
 }
 
-async function POST(req: any): Promise<Response> {
-    return getResponse(req);
+/// Next frame: https://frames.phatfn.xyz/ipfs/QmReeqatcvgKYhvvJ38vDwgfKDsKbwKpuM2QktfF7qM3WM/0
+
+
+async function POST(req: Request): Promise<Response> {
+    const body: FrameRequest =  await req.json()
+    const pageNum = parseInt(req.queries['page'][0])
+    const delta = [-1, 1][body.untrustedData.buttonIndex]
+    const curPage = pageNum + delta
+    
+    return new Response(
+        renderPage(curPage, req.path),
+        { headers: { 'Cache-Control': 'public, max-age=86400' } }
+    );
 }
 
 export default async function main(request: string) {
