@@ -87,26 +87,38 @@ You can test the frame with the [Warpcast frame simulator](https://warpcast.com/
 
 ### Add Secrets
 
-By default, all of the compiled JS code is visible for anyone to view if they look at IPFS CID. This makes private info like API keys, signer keys, etc. vulnerable to be stolen. To protect devs from leaking keys, we have added a field called `secret` in the `SerializedRequest` interface to store secrets in a vault for your Frame to consume.
+By default, all of the compiled JS code is visible for anyone to view if they look at IPFS CID. This makes private info like API keys, signer keys, etc. vulnerable to be stolen. To protect devs from leaking keys, we have added a field called `secret` in the `Request` object. It allows you to store secrets in a vault for your Frame to access.
 
 <details>
 <summary><b>How to Add Secrets</b></summary>
 
-The steps to add a `secret` is simple. We will add the [Neynar](https://neynar.com) API Key in this example by creating a key value `apiKey` mapped to a value.
+The steps to add a `secret` is simple. We will add the [Neynar](https://neynar.com) API Key in this example by creating a secret JSON object with the `apiKey`:
+
+```json
+{"apiKey": "<NEYNAR_API_KEY>"}
+```
+
+Then in your frame code, you will be able to access the secret key via `req.secret` object:
+
+```js
+async function POST(req: Request): Promise<Response> {
+    const apiKey = req.secret?.apiKey
+}
+```
+
 > Note: Before continuing, make sure to publish your compiled JS code, so you can add secrets to the CID.
 
 **Open terminal**
-Use `curl` to `POST` your secrets to `https://frames.phatfn.xyz/vaults`. Replace `IPFS_CID` with the CID to the compile JS code in IPFS, and replace `NEYNAR_API_KEY` with your Neynar API key.
+Use `curl` to `POST` your secrets to `https://frames.phatfn.xyz/vaults`. Replace `IPFS_CID` with the CID to the compile JS code in IPFS, and replace `<NEYNAR_API_KEY>` with your Neynar API key.
 
 The command will look like this:
 ```shell
-curl https://frames.phatfn.xyz/vaults -H 'Content-Type: application/json' -d '{"cid": "IPFS_CID", "data": {"apiKey": "NEYNAR_API_KEY"}}'
+curl https://frames.phatfn.xyz/vaults -H 'Content-Type: application/json' -d '{"cid": "IPFS_CID", "data": {"apiKey": "<NEYNAR_API_KEY>"}}'
+# Output:
+# {"token":"e85ae53d2ba4ca8d","key":"e781ef31210e0362","succeed":true}
 ```
 
-The output should return something similar:
-```shell
-{"token":"e85ae53d2ba4ca8d","key":"e781ef31210e0362","succeed":true}
-```
+The API returns a `token` and a `key`. The `key` is the id of your secret. It can be used to specify which secret you are going to pass to your frame. The `token` can be used by the developer to access the raw secret. You should never leak the `token`.
 
 To verify the secret, run the following command where `key` and `token` are replaced with the values from adding your `secret` to the vault.
 ```shell
@@ -115,7 +127,7 @@ curl https://frames.phatfn.xyz/vaults/<key>/<token>
 
 Expected output:
 ```shell
-{"data":{"apiKey":"NEYNAR_API_KEY"},"succeed":true}
+{"data":{"apiKey":"<NEYNAR_API_KEY>"},"succeed":true}
 ```
 
 To see where the code is used in this template, check out [index.ts](./src/index.ts) line 36.
