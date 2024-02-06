@@ -4,16 +4,17 @@ import { getFrameMessage } from '@coinbase/onchainkit/dist/lib/core/getFrameMess
 import { Request, Response, renderOpenGraph, route } from './frameSupport'
 
 const BASE_URL = 'https://frames.phatfn.xyz'
+const image = 'https://i.imgur.com/belk1Ha.png'
 
 async function GET(req: Request): Promise<Response> {
     const secret = req.queries?.key ?? '';
     const frameMetadata = getFrameMetadata({
         buttons: [
             {
-                label: `FrameHub Template\nClick Here!`,
+                label: 'FrameHub Template\nClick Here!',
             },
         ],
-        image: `https://framehub.4everland.store/PhatFrame.png`,
+        image: image,
         post_url: BASE_URL + req.path + `?key=${secret[0]}`,
     });
 
@@ -23,11 +24,9 @@ async function GET(req: Request): Promise<Response> {
         openGraph: {
             title: BASE_URL + req.path,
             description: 'FrameHub',
-            images: [`https://framehub.4everland.store/PhatFrame.png`],
+            images: [image],
         },
-        other: {
-            ...frameMetadata,
-        },
+        other: frameMetadata,
       }),
       { headers: { 'Cache-Control': 'public, max-age=86400' } }
     );
@@ -51,7 +50,7 @@ async function getResponse(req: Request): Promise<Response> {
                 label: `Phat Hello to ${accountAddress}`,
             },
         ],
-        image: 'https://framehub.4everland.store/FrameHub.png',
+        image: image,
         post_url: BASE_URL + req.path + `?key=${secret[0]}`,
     });
 
@@ -61,11 +60,9 @@ async function getResponse(req: Request): Promise<Response> {
             openGraph: {
                 title: BASE_URL + req.path,
                 description: 'FrameHub',
-                images: [`https://framehub.4everland.store/FrameHub.png`],
+                images: [image],
             },
-            other: {
-                ...frameMetadata,
-            },
+            other: frameMetadata,
         }),
         { headers: { 'Cache-Control': 'public, max-age=86400' } }
     );
