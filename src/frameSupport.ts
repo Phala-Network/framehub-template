@@ -70,6 +70,8 @@ export type Metadata = {
 }
 
 export function renderOpenGraph(metadata: Metadata): string {
+    const sortedMetadata = Object.entries(metadata.other)
+        .sort((a, b) => a[0] < b[0] ? -1 : (a[0] > b[0] ? 1 : 0))
     return `
     <!DOCTYPE html>
     <html lang="en">
@@ -78,8 +80,8 @@ export function renderOpenGraph(metadata: Metadata): string {
             <meta property="og:title" content="${metadata.title}" />
             <meta property="og:image" content="${metadata.openGraph.images[0]}" />
             <title>${metadata.title}</title>
-            ${Object.entries(metadata.other).map(([k, v]) => `
-            <meta property="${k}" content="${v}" />`).join('\n')}
+            ${sortedMetadata.map(([k, v]) => `
+            <meta property="${k}" content="${v}" />`).join('')}
         </head>
         <body>
             <div align="center">

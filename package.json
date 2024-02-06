@@ -12,10 +12,10 @@
     "publish": "phat-fn build --experimentalAsync && tsx scripts/publish.ts"
   },
   "devDependencies": {
-    "typechain": "^8.1.0",
-    "typescript": "^5.2.2",
     "@phala/fn": "~0.2.14",
-    "tsx": "^4.7.0"
+    "tsx": "^4.7.0",
+    "typechain": "^8.1.0",
+    "typescript": "^5.2.2"
   },
   "dependencies": {
     "@coinbase/onchainkit": "^0.4.5"

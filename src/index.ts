@@ -6,11 +6,12 @@ import { Request, Response, renderOpenGraph, route } from './frameSupport'
 const BASE_URL = 'https://frames.phatfn.xyz'
 
 const pageImgs = [
-    'https://cloudflare-ipfs.com/ipfs/QmUUNNeYnnTdUxyeDqkMg67m1r6RsgpgbbeGR74nRZS1jX/1.png',
-    'https://cloudflare-ipfs.com/ipfs/QmUUNNeYnnTdUxyeDqkMg67m1r6RsgpgbbeGR74nRZS1jX/2.png',
-    'https://cloudflare-ipfs.com/ipfs/QmUUNNeYnnTdUxyeDqkMg67m1r6RsgpgbbeGR74nRZS1jX/3.png',
-    'https://cloudflare-ipfs.com/ipfs/QmUUNNeYnnTdUxyeDqkMg67m1r6RsgpgbbeGR74nRZS1jX/4.png',
-    'https://cloudflare-ipfs.com/ipfs/QmUUNNeYnnTdUxyeDqkMg67m1r6RsgpgbbeGR74nRZS1jX/5.png',
+    'https://i.imgur.com/belk1Ha.png',
+    'https://i.imgur.com/cyxUNGm.png',
+    'https://i.imgur.com/fFTUIER.png',
+    'https://i.imgur.com/YDwCZWQ.png',
+    'https://i.imgur.com/r7ptyLR.png',
+    'https://i.imgur.com/yfkqIf6.png',
 ]
 
 function renderPage(curPage: number, path: string): string {
@@ -19,14 +20,19 @@ function renderPage(curPage: number, path: string): string {
     const isLastPage = (curPage == pageImgs.length - 1)
     const frameMetadata = getFrameMetadata({
         buttons: [
-            {label: isFirstPage ? 'Get Started' : '⬅️ Prev'},
-            {label: isLastPage ? 'Get Started' : 'Next ➡️'}
+            (isFirstPage ? { label: 'Get Started', action: 'link' } : { label: '⬅️ Prev' }),
+            (isLastPage ? { label: 'Get Started', action: 'link' } : { label: 'Next ➡️' }),
         ],
         image: pageImgs[curPage],
         post_url: postUrl,
         refresh_period: null,
         input: null,
     });
+    if (isFirstPage) {
+        frameMetadata['fc:frame:button:1:target'] = 'https://github.com/Phala-Network/framehub-template'
+    } else if (isLastPage) {
+        frameMetadata['fc:frame:button:2:target'] = 'https://github.com/Phala-Network/framehub-template'
+    }
 
     return renderOpenGraph({
         title: postUrl,
@@ -46,13 +52,10 @@ async function GET(req: Request): Promise<Response> {
     );
 }
 
-/// Next frame: https://frames.phatfn.xyz/ipfs/QmReeqatcvgKYhvvJ38vDwgfKDsKbwKpuM2QktfF7qM3WM/0
-
-
 async function POST(req: Request): Promise<Response> {
     const body: FrameRequest =  await req.json()
     const pageNum = parseInt(req.queries['page'][0])
-    const delta = [-1, 1][body.untrustedData.buttonIndex]
+    const delta = [0, -1, 1][body.untrustedData.buttonIndex]
     const curPage = pageNum + delta
     
     return new Response(
