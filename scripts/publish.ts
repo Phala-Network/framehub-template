@@ -23,6 +23,7 @@ try {
       if (match) {
         const ipfsCid = match[1];
         console.log(`\nFrame deployed at: https://frames.phatfn.xyz/ipfs/${ipfsCid}`)
+        console.log(`Simulate with Frames.js debugger: https://debugger.framesjs.org/debug?url=https://frames.phatfn.xyz/ipfs/${ipfsCid}`)
       } else {
         console.log('IPFS CID not found');
       }
