@@ -29,18 +29,18 @@ async function test() {
         method: 'GET',
         path: '/ipfs/QmVHbLYhhYA5z6yKpQr4JWr3D54EhbSsh7e7BFAAyrkkMf',
         queries: {},
-        secrets: {},
+        secret: {},
         headers: {},
     })
     console.log('GET RESULT:', JSON.parse(getResult))
-    
+
     const postResult = await execute({
         method: 'POST',
         path: '/ipfs/QmVHbLYhhYA5z6yKpQr4JWr3D54EhbSsh7e7BFAAyrkkMf',
         queries: {
             page: ['1'],
         },
-        secrets: {},
+        secret: {},
         headers: {},
         body: JSON.stringify(sampleInput)
     })
