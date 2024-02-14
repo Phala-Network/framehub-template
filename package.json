@@ -18,6 +18,6 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@coinbase/onchainkit": "^0.4.5"
+    "@coinbase/onchainkit": "^0.5.4"
   }
 }
