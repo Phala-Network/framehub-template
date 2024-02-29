@@ -64,7 +64,7 @@ npm run publish
 ```
 
 Upon a successful upload, the command should show the URL to access your frame.
-> Frame deployed at: https://frames.phatfn.xyz/Qma4ejJPfuB9ag63TrWWd379QA1rKf1HyXJmLE5k16dAYk
+> Frame deployed at: https://frames.phatfn.xyz/ipfs/Qma4ejJPfuB9ag63TrWWd379QA1rKf1HyXJmLE5k16dAYk
 
 <details>
 <summary>New to thirdweb?</summary>
